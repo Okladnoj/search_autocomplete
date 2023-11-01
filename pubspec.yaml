@@ -1,7 +1,8 @@
 name: search_autocomplete
-description: A new Flutter package project.
-version: 0.0.1
-homepage:
+description: A Flutter package for implementing autocomplete search functionality with support for custom dropdowns and seamless integration with Cubit/BLoC and other state management solutions.
+version: 0.0.3
+homepage: https://github.com/Okladnoj/search_autocomplete
+repository: https://github.com/Okladnoj/search_autocomplete
 
 environment:
   sdk: '>=3.1.3 <4.0.0'
@@ -17,3 +18,18 @@ dev_dependencies:
   flutter_lints: ^2.0.0
 
 flutter:
+
+
+keywords:
+  - flutter
+  - autocomplete
+  - search
+  - dropdown
+  - cubit
+  - bloc
+  - state management
+  - ui
+  - form
+  - text field
+
+license: MIT

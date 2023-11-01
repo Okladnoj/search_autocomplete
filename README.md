@@ -1,39 +1,69 @@
-<!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+# Search Autocomplete Flutter Package
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages).
+## Overview
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages).
--->
+This Flutter package provides a `SearchAutocomplete` widget for implementing autocomplete functionality with a dropdown menu. The package offers extensive customization options for the search field, dropdown items, and includes hooks for search logic.
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+## Installation
+
+To use this package, add `search_autocomplete` as a dependency in your `pubspec.yaml` file:
+
+```dart
+dependencies:
+  search_autocomplete: ^0.0.3
+```
 
 ## Features
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+- Customizable search field
+- Customizable dropdown items
+- Hooks for search logic
+- Initial value support
+- Placeholder text support
+- Widget to display when the dropdown is empty
 
-## Getting started
+### State Management Compatibility
+- Designed to work seamlessly with Cubit/Bloc and other orthodox state managers. Since the list updating logic resides higher up in the widget tree, it allows for a clean separation between UI and logic.
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
 
 ## Usage
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
+Here's a quick example to show how to use `SearchAutocomplete` widget:
 
 ```dart
-const like = 'sample';
+SearchAutocomplete<String>(
+  options: ['Apple', 'Banana', 'Orange'],
+  initValue: 'Apple',
+  onSearch: (query) {
+    // Implement your search logic here
+  },
+  onSelected: (item) {
+    // Handle selection
+  },
+  getString: (item) => item,
+)
 ```
 
-## Additional information
+### Customization
 
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+Both the search field and the dropdown items can be customized using `fieldBuilder` and `dropDownBuilder` respectively.
+
+```dart
+SearchAutocomplete<String>(
+  // ...
+  fieldBuilder: (controller, onFieldTap, showDropdown) {
+    return TextFormField(
+      // Customizations here
+    );
+  },
+  dropDownBuilder: (options, onSelected) {
+    return ListView.builder(
+      // Customizations here
+    );
+  },
+)
+```
+
+## License
+
+This package is licensed under the MIT License. See the [LICENSE.md](LICENSE.md) file for details.
