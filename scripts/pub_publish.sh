@@ -9,7 +9,7 @@
 cd "$(dirname "$0")/.."
 
 # Your comments for the changelog
-comments=("Complete main flow of `SearchAutocomplete` package")
+comments=("Fixed description")
 
 # Increment the version number
 echo -e "\033[32mIncrementing the version number...\033[0m"

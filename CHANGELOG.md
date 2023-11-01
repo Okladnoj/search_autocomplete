@@ -1,3 +1,7 @@
+## 0.0.4
+
+- Fixed description
+
 ## 0.0.3
 
 - Complete main flow of  package
