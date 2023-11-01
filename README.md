@@ -1,5 +1,9 @@
 # Search Autocomplete Flutter Package
 
+<a href="https://www.buymeacoffee.com/okji" target="_blank">
+  <img src="https://cdn.buymeacoffee.com/buttons/v2/default-violet.png" alt="Buy Me A Pizza" style="max-width: 160px;"/>
+</a>
+
 ## Overview
 
 This Flutter package provides a `SearchAutocomplete` widget for implementing autocomplete functionality with a dropdown menu. The package offers extensive customization options for the search field, dropdown items, and includes hooks for search logic.
