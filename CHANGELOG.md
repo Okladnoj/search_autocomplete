@@ -1,3 +1,7 @@
+## 0.0.5
+
+- Fixed iOS life cycle states
+
 ## 0.0.4
 
 - Fixed description

@@ -9,7 +9,7 @@
 cd "$(dirname "$0")/.."
 
 # Your comments for the changelog
-comments=("Fixed description")
+comments=("Fixed iOS life cicle states")
 
 # Increment the version number
 echo -e "\033[32mIncrementing the version number...\033[0m"

@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -209,13 +208,6 @@ class _SearchAutocompleteState<T> extends State<SearchAutocomplete<T>>
       _positionForm.value = positionForm;
     })
       ..start();
-  }
-
-  @override
-  void didChangeMetrics() {
-    if (_showDropdown) {
-      _insertOverlay(context);
-    }
   }
 
   @override
