@@ -1,3 +1,7 @@
+## 0.0.6
+
+- Added control to show/hide search list
+
 ## 0.0.5
 
 - Fixed iOS life cycle states

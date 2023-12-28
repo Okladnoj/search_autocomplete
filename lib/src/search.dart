@@ -247,6 +247,7 @@ class _SearchAutocompleteState<T> extends State<SearchAutocomplete<T>>
           _controller,
           _onFieldTap,
           _showDropdown,
+          (value) => value ? _tapOutside() : _onFieldTap(),
         ) ??
         DefaultTextField(
           controller: _controller,

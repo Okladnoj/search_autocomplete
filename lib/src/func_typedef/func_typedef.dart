@@ -38,4 +38,5 @@ typedef TextFieldWithArgs = Widget Function(
   TextEditingController controller,
   VoidCallback onFieldTap,
   bool showDropdown,
+  ValueSetter<bool> close,
 );

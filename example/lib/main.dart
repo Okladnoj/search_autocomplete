@@ -85,13 +85,18 @@ class _SearchPageState extends State<SearchPage> {
         onSearch: _cubit.search,
         onSelected: _cubit.select,
         getString: (value) => value,
-        fieldBuilder: (controller, onFieldTap, showDropdown) {
+        fieldBuilder: (controller, onFieldTap, showDropdown, onPressed) {
           return TextFormField(
             controller: controller,
             onTap: onFieldTap,
-            decoration: const InputDecoration(
-              hintText: 'Custom search...',
-            ),
+            decoration: InputDecoration(
+                hintText: 'Custom search...',
+                suffixIcon: IconButton(
+                  onPressed: () => onPressed(showDropdown),
+                  icon: Icon(
+                    showDropdown ? Icons.arrow_drop_down : Icons.arrow_drop_up,
+                  ),
+                )),
           );
         },
         dropDownBuilder: (options, onSelected) {

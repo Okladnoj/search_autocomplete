@@ -9,7 +9,7 @@
 cd "$(dirname "$0")/.."
 
 # Your comments for the changelog
-comments=("Fixed iOS life cicle states")
+comments=("Added control to show/hide search list")
 
 # Increment the version number
 echo -e "\033[32mIncrementing the version number...\033[0m"

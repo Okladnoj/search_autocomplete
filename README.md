@@ -14,7 +14,7 @@ To use this package, add `search_autocomplete` as a dependency in your `pubspec.
 
 ```dart
 dependencies:
-  search_autocomplete: ^0.0.5
+  search_autocomplete: ^0.0.6
 ```
 
 ## Features
