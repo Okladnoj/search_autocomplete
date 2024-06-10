@@ -1,3 +1,8 @@
+## 0.0.7
+
+- Fixed metadata
+- Update flutter version
+
 ## 0.0.6
 
 - Added control to show/hide search list

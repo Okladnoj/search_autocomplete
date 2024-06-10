@@ -1,4 +1,5 @@
 # Search Autocomplete Flutter Package
+![Video](assets/record.gif)
 
 <a href="https://www.buymeacoffee.com/okji" target="_blank">
   <img src="https://cdn.buymeacoffee.com/buttons/v2/default-violet.png" alt="Buy Me A Pizza" style="max-width: 160px;"/>
@@ -14,7 +15,7 @@ To use this package, add `search_autocomplete` as a dependency in your `pubspec.
 
 ```dart
 dependencies:
-  search_autocomplete: ^0.0.6
+  search_autocomplete: ^0.0.7
 ```
 
 ## Features

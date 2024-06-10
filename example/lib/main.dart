@@ -54,9 +54,9 @@ class _SearchPageState extends State<SearchPage> {
     return ListView(
       children: [
         const SizedBox(height: 120),
-        _buildDefaultField(state),
-        const SizedBox(height: 120),
         _buildCustomizeField(state),
+        const SizedBox(height: 200),
+        _buildDefaultField(state),
         const SizedBox(height: 800),
       ],
     );

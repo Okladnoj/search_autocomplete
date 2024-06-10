@@ -76,7 +76,7 @@ class PositionForm {
   ///
   /// Two `PositionForm` objects are considered equal if all their fields are equal.
   @override
-  operator ==(dynamic other) =>
+  operator ==(Object other) =>
       other is PositionForm &&
       other.bottomLeft == bottomLeft &&
       other.bottomRight == bottomRight &&
