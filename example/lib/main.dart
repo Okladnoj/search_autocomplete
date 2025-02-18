@@ -11,11 +11,44 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.fromLTRB(60, 0, 20, 0),
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(20, 0, 30, 50),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: SearchPage(),
+        home: const SearchPage(),
+        builder: (context, child) {
+          return DecoratedBox(
+            decoration: const BoxDecoration(color: Colors.blueGrey),
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                LayoutBuilder(builder: (_, ctx) {
+                  return SingleChildScrollView(
+                    physics: const BouncingScrollPhysics(),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.redAccent.withValues(alpha: 0.2),
+                        border: const Border(
+                          right: BorderSide(width: 0.5),
+                          left: BorderSide(width: 0.5),
+                        ),
+                      ),
+                      constraints: BoxConstraints(
+                        minHeight: ctx.maxHeight,
+                        maxWidth: 450,
+                      ),
+                      child: IntrinsicHeight(child: child),
+                    ),
+                  );
+                }),
+                const Align(
+                  alignment: Alignment.bottomRight,
+                  child: Text('12345 text'),
+                ),
+              ],
+            ),
+          );
+        },
       ),
     );
   }

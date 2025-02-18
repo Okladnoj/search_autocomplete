@@ -9,7 +9,7 @@
 cd "$(dirname "$0")/.."
 
 # Your comments for the changelog split by "/"
-comments=("Fixed dropdown menu positioning for nested pages with global offsets")
+comments=("Fixed IntrinsicHeight wrapping for router builder")
 
 # Increment the version number
 echo -e "\033[32mIncrementing the version number...\033[0m"

@@ -1,3 +1,7 @@
+## 0.0.9
+
+- Fixed IntrinsicHeight wrapping for router builder
+
 ## 0.0.8
 
 - Fixed dropdown menu positioning for nested pages with global offsets
