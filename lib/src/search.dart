@@ -117,22 +117,33 @@ class _SearchAutocompleteState<T> extends State<SearchAutocomplete<T>>
       builder: (_) {
         return ValueListenableBuilder<PositionForm>(
           valueListenable: _positionForm,
-          builder: (context, PositionForm positionForm, child) {
-            return Stack(
-              children: [
-                CustomGestureDetector(
-                  onTap: _tapOutside,
-                  ignoredArea: positionForm.area,
-                  child: const SizedBox.expand(),
-                ),
-                positionForm.wrapAreaUnder(
-                  child: Material(
-                    color: Colors.transparent,
-                    child: _buildDropdown(),
-                  ),
-                ),
-              ],
-            );
+          builder: (context, positionForm, child) {
+            return FutureBuilder(
+                future: Future.value(),
+                builder: (context, snapshot) {
+                  return LayoutBuilder(builder: (layerCtx, ct) {
+                    final bounds = layerCtx._globalPaintBounds;
+                    if (bounds == null) return const SizedBox.shrink();
+                    final pos = PositionForm.fromRect(bounds);
+                    return Stack(
+                      fit: StackFit.expand,
+                      children: [
+                        CustomGestureDetector(
+                          onTap: _tapOutside,
+                          ignoredArea: positionForm.area,
+                          child: const SizedBox.expand(),
+                        ),
+                        positionForm.wrapAreaUnder(
+                          basePosition: pos,
+                          child: Material(
+                            color: Colors.transparent,
+                            child: _buildDropdown(),
+                          ),
+                        ),
+                      ],
+                    );
+                  });
+                });
           },
         );
       },
@@ -289,13 +300,14 @@ class _SearchAutocompleteState<T> extends State<SearchAutocomplete<T>>
 extension _GlobalPaintBounds on BuildContext {
   Rect? get _globalPaintBounds {
     final renderObject = findRenderObject();
-    final translation = renderObject?.getTransformTo(null).getTranslation();
-    if (translation != null && renderObject?.paintBounds != null) {
-      final offset = Offset(translation.x, translation.y);
-      return renderObject?.paintBounds.shift(offset);
-    } else {
-      return null;
-    }
+
+    if (renderObject is! RenderBox || !renderObject.hasSize) return null;
+
+    final topLeft = renderObject.localToGlobal(Offset.zero);
+    final point = renderObject.size.bottomRight(Offset.zero);
+    final bottomRight = renderObject.localToGlobal(point);
+
+    return Rect.fromPoints(topLeft, bottomRight);
   }
 }
 

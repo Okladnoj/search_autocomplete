@@ -1,3 +1,7 @@
+## 0.0.8
+
+- Fixed dropdown menu positioning for nested pages with global offsets
+
 ## 0.0.7
 
 - Fixed metadata

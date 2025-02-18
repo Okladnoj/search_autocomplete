@@ -63,11 +63,22 @@ class PositionForm {
   ///
   /// **Parameters:**
   /// - `child`: The widget to be wrapped. Defaults to an empty [SizedBox].
-  Widget wrapAreaUnder({Widget child = const SizedBox.shrink()}) {
+  Widget wrapAreaUnder({
+    Widget child = const SizedBox.shrink(),
+    PositionForm basePosition = const PositionForm(),
+  }) {
+    final top = bottomLeft.dy;
+    final leftGlobal = basePosition.bottomLeft.dx;
+    final rightGlobal = leftGlobal + basePosition.size.width;
+    final leftElement = bottomLeft.dx;
+    final rightElement = leftElement + size.width;
+    final left = leftElement - leftGlobal;
+    final right = rightGlobal - rightElement;
+
     return Positioned(
-      top: bottomLeft.dy,
-      left: bottomLeft.dx,
-      right: bottomRight.dx - size.width,
+      top: top,
+      left: left,
+      right: right,
       child: child,
     );
   }

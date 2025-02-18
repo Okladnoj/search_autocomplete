@@ -11,9 +11,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: SearchPage(),
+    return const Padding(
+      padding: EdgeInsets.fromLTRB(60, 0, 20, 0),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: SearchPage(),
+      ),
     );
   }
 }
@@ -64,7 +67,7 @@ class _SearchPageState extends State<SearchPage> {
 
   Widget _buildDefaultField(SearchState state) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.fromLTRB(10, 0, 20, 5),
       child: SearchAutocomplete<String>(
         options: state.listFiltered,
         initValue: state.current,

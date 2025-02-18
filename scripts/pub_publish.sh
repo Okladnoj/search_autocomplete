@@ -8,8 +8,8 @@
 # Change to the root directory of the project
 cd "$(dirname "$0")/.."
 
-# Your comments for the changelog
-comments=("Added control to show/hide search list")
+# Your comments for the changelog split by "/"
+comments=("Fixed dropdown menu positioning for nested pages with global offsets")
 
 # Increment the version number
 echo -e "\033[32mIncrementing the version number...\033[0m"
