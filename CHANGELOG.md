@@ -1,3 +1,7 @@
+## 1.0.0
+
+- Optimized schedule rendering
+
 ## 0.0.9
 
 - Fixed IntrinsicHeight wrapping for router builder

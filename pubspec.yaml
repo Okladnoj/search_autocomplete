@@ -1,8 +1,9 @@
 name: search_autocomplete
 description: A Flutter autocomplete search widget with custom dropdowns and Cubit/BLoC support.
-version: 0.0.9
+version: 1.0.0
 homepage: https://github.com/Okladnoj/search_autocomplete
 repository: https://github.com/Okladnoj/search_autocomplete
+issue_tracker: https://github.com/Okladnoj/search_autocomplete/issues
 
 environment:
   sdk: '>=3.1.3 <4.0.0'
@@ -18,7 +19,7 @@ dev_dependencies:
   flutter_lints: ^4.0.0
 
 flutter:
-
+  uses-material-design: true
 
 keywords:
   - flutter
@@ -31,5 +32,11 @@ keywords:
   - ui
   - form
   - text field
+
+topics:
+  - search
+  - drop-down
+  - search-field
+  - autocomplete
 
 license: MIT

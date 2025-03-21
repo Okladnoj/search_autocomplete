@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 
 import 'components/default_drop_down.dart';
 import 'components/default_text_field.dart';
@@ -102,7 +101,6 @@ class _SearchAutocompleteState<T> extends State<SearchAutocomplete<T>>
   final _optionsStrCtr = StreamController<List<T>>.broadcast();
 
   OverlayEntry? _overlayEntry;
-  Ticker? _ticker;
 
   final _positionForm = ValueNotifier(const PositionForm());
 
@@ -118,43 +116,40 @@ class _SearchAutocompleteState<T> extends State<SearchAutocomplete<T>>
         return ValueListenableBuilder<PositionForm>(
           valueListenable: _positionForm,
           builder: (context, positionForm, child) {
-            var future = WidgetsBinding.instance.waitUntilFirstFrameRasterized;
-            return FutureBuilder(
-                future: future,
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState != ConnectionState.done) {
-                    return const SizedBox.shrink();
-                  }
-                  return SizedBox.fromSize(
-                    size: MediaQuery.sizeOf(context),
-                    child: FutureBuilder(
-                        future: future,
-                        builder: (_, __) {
-                          return LayoutBuilder(builder: (layerCtx, ct) {
-                            final bounds = layerCtx._globalPaintBounds;
-                            if (bounds == null) return const SizedBox.shrink();
-                            final pos = PositionForm.fromRect(bounds);
-                            return Stack(
-                              fit: StackFit.expand,
-                              children: [
-                                CustomGestureDetector(
-                                  onTap: _tapOutside,
-                                  ignoredArea: positionForm.area,
-                                  child: const SizedBox.expand(),
-                                ),
-                                positionForm.wrapAreaUnder(
-                                  basePosition: pos,
-                                  child: Material(
-                                    color: Colors.transparent,
-                                    child: _buildDropdown(),
-                                  ),
-                                ),
-                              ],
-                            );
-                          });
-                        }),
-                  );
-                });
+            final future = Future.wait([
+              WidgetsBinding.instance.waitUntilFirstFrameRasterized,
+              WidgetsBinding.instance.waitUntilFirstFrameRasterized,
+            ]);
+
+            return SizedBox.fromSize(
+              size: MediaQuery.sizeOf(context),
+              child: FutureBuilder(
+                  future: future,
+                  builder: (_, __) {
+                    return LayoutBuilder(builder: (layerCtx, ct) {
+                      final bounds = layerCtx._globalPaintBounds;
+                      if (bounds == null) return const SizedBox.shrink();
+                      final pos = PositionForm.fromRect(bounds);
+                      return Stack(
+                        fit: StackFit.expand,
+                        children: [
+                          CustomGestureDetector(
+                            onTap: _tapOutside,
+                            ignoredArea: positionForm.area,
+                            child: const SizedBox.expand(),
+                          ),
+                          positionForm.wrapAreaUnder(
+                            basePosition: pos,
+                            child: Material(
+                              color: Colors.transparent,
+                              child: _buildDropdown(),
+                            ),
+                          ),
+                        ],
+                      );
+                    });
+                  }),
+            );
           },
         );
       },
@@ -213,6 +208,22 @@ class _SearchAutocompleteState<T> extends State<SearchAutocomplete<T>>
     });
   }
 
+  void _updatePosition() {
+    if (!_showDropdown) return;
+    if (!mounted) return;
+
+    final positionForm = PositionForm.fromRect(context._globalPaintBounds);
+
+    if (_positionForm.value == positionForm) return;
+
+    _positionForm.value = positionForm;
+  }
+
+  void _onFrameCallback(Duration timeStamp) {
+    _updatePosition();
+    WidgetsBinding.instance.scheduleFrameCallback(_onFrameCallback);
+  }
+
   @override
   void initState() {
     super.initState();
@@ -220,16 +231,7 @@ class _SearchAutocompleteState<T> extends State<SearchAutocomplete<T>>
     final value = widget.initValue;
     _controller.text = value != null ? widget.getString(value) : '';
     _controller.addListener(_filterOptions);
-
-    _ticker = Ticker((timer) {
-      if (!_showDropdown) return;
-      final positionForm = PositionForm.fromRect(context._globalPaintBounds);
-
-      if (_positionForm.value == positionForm) return;
-
-      _positionForm.value = positionForm;
-    })
-      ..start();
+    WidgetsBinding.instance.scheduleFrameCallback(_onFrameCallback);
   }
 
   @override
@@ -259,7 +261,6 @@ class _SearchAutocompleteState<T> extends State<SearchAutocomplete<T>>
     _controller.dispose();
     _optionsStrCtr.close();
     WidgetsBinding.instance.removeObserver(this);
-    _ticker?.dispose();
     super.dispose();
   }
 

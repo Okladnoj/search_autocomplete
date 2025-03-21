@@ -43,7 +43,12 @@ class MyApp extends StatelessWidget {
                 }),
                 const Align(
                   alignment: Alignment.bottomRight,
-                  child: Text('12345 text'),
+                  child: Material(
+                    child: Text(
+                      '12345 text',
+                      style: TextStyle(fontSize: 24),
+                    ),
+                  ),
                 ),
               ],
             ),
