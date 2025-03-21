@@ -1,3 +1,7 @@
+## 1.0.2
+
+- Fixed readme
+
 ## 1.0.1
 
 - Added TextEditingController to dropDownBuilder for custom search action

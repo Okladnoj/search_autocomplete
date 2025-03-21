@@ -15,7 +15,7 @@ To use this package, add `search_autocomplete` as a dependency in your `pubspec.
 
 ```dart
 dependencies:
-  search_autocomplete: ^1.0.1
+  search_autocomplete: ^1.0.2
 ```
 
 ## Features
@@ -33,38 +33,77 @@ dependencies:
 
 ## Usage
 
-Here's a quick example to show how to use `SearchAutocomplete` widget:
+Here's a simple example demonstrating how to use the `SearchAutocomplete` widget:
+
+### Basic example:
 
 ```dart
 SearchAutocomplete<String>(
-  options: ['Apple', 'Banana', 'Orange'],
-  initValue: 'Apple',
+  options: state.filteredItems, // Like: ['Apple', 'Banana', 'Orange'],
+  initValue: state.currentItem, // Like: 'Apple',
+  getString: (item) => item,
   onSearch: (query) {
-    // Implement your search logic here
+    // Call your Bloc/Cubit/Provider method to filter options based on the query
+    context.read<SearchCubit>().search(query);
   },
   onSelected: (item) {
-    // Handle selection
+    // Update your Bloc/Cubit/Provider state when an item is selected
+    context.read<SearchCubit>().select(item);
   },
-  getString: (item) => item,
+  hintText: 'Search fruits...',
 )
 ```
 
-### Customization
+### Customization example:
 
-Both the search field and the dropdown items can be customized using `fieldBuilder` and `dropDownBuilder` respectively.
+You can customize both the search field and dropdown items appearance using provided builders:
 
 ```dart
 SearchAutocomplete<String>(
-  // ...
-  fieldBuilder: (controller, onFieldTap, showDropdown) {
+  options: state.filteredItems,
+  initValue: state.currentItem,
+  getString: (item) => item,
+
+  onSearch: (query) {
+    context.read<SearchCubit>().search(query);
+  },
+
+  onSelected: (item) {
+    context.read<SearchCubit>().select(item);
+  },
+
+  fieldBuilder: (controller, onFieldTap, showDropdown, onPressed) {
     return TextFormField(
-      // Customizations here
+      controller: controller,
+      onTap: onFieldTap,
+      decoration: InputDecoration(
+        hintText: 'Custom search...',
+        suffixIcon: IconButton(
+          icon: Icon(
+            showDropdown ? Icons.arrow_drop_up : Icons.arrow_drop_down,
+          ),
+          onPressed: () => onPressed(showDropdown),
+        ),
+      ),
     );
   },
-  dropDownBuilder: (options, onSelected) {
+
+  dropDownBuilder: (options, onSelected, controller) {
     return ListView.builder(
-      // Customizations here
+      itemCount: options.length,
+      itemBuilder: (context, index) {
+        final option = options[index];
+        return ListTile(
+          leading: Icon(Icons.star),
+          title: Text(option),
+          onTap: () => onSelected(option),
+        );
+      },
     );
+  },
+
+  emptyDropDown: (controller, close) {
+    return Center(child: Text('No results found.'));
   },
 )
 ```
