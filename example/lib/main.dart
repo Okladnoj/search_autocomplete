@@ -127,30 +127,71 @@ class _SearchPageState extends State<SearchPage> {
         onSelected: _cubit.select,
         getString: (value) => value,
         fieldBuilder: (controller, onFieldTap, showDropdown, onPressed) {
-          return TextFormField(
-            controller: controller,
-            onTap: onFieldTap,
-            decoration: InputDecoration(
-                hintText: 'Custom search...',
-                suffixIcon: IconButton(
-                  onPressed: () => onPressed(showDropdown),
-                  icon: Icon(
-                    showDropdown ? Icons.arrow_drop_down : Icons.arrow_drop_up,
+          return InkWell(
+            onTap: () => onPressed(showDropdown),
+            child: Row(
+              children: [
+                Expanded(child: Text('Current value: ${state.current}')),
+                Expanded(
+                  child: TextFormField(
+                    controller: controller,
+                    onTap: onFieldTap,
+                    decoration: InputDecoration(
+                      hintText: 'Search...',
+                      suffixIcon: IconButton(
+                        onPressed: () => onPressed(showDropdown),
+                        icon: Icon(
+                          showDropdown
+                              ? Icons.arrow_drop_down
+                              : Icons.arrow_drop_up,
+                        ),
+                      ),
+                    ),
                   ),
-                )),
+                ),
+              ],
+            ),
           );
         },
-        dropDownBuilder: (options, onSelected) {
-          return ListView.builder(
-            itemCount: options.length,
-            itemBuilder: (context, index) {
-              final option = options[index];
-              return ListTile(
-                leading: const Icon(Icons.star),
-                title: Text(option),
-                onTap: () => onSelected(option),
-              );
-            },
+        dropDownBuilder: (options, onSelected, controller) {
+          return Column(
+            children: [
+              TextFormField(
+                controller: controller,
+                decoration: InputDecoration(
+                  hintText: 'Custom search...',
+                  suffixIcon: IconButton(
+                    onPressed: controller.clear,
+                    icon: Icon(Icons.clear),
+                  ),
+                ),
+              ),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: options.length,
+                  itemBuilder: (context, index) {
+                    final option = options[index];
+                    return ListTile(
+                      leading: const Icon(Icons.star),
+                      title: Text(option),
+                      onTap: () => onSelected(option),
+                    );
+                  },
+                ),
+              ),
+            ],
+          );
+        },
+        emptyDropDown: (controller, close) {
+          return TextFormField(
+            controller: controller,
+            decoration: InputDecoration(
+              hintText: 'Custom search...',
+              suffixIcon: IconButton(
+                onPressed: controller.clear,
+                icon: Icon(Icons.clear),
+              ),
+            ),
           );
         },
       ),

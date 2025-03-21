@@ -9,7 +9,7 @@
 cd "$(dirname "$0")/.."
 
 # Your comments for the changelog split by "/"
-comments=("Optimized schedule rendering")
+comments=("Added TextEditingController to dropDownBuilder for custom search action")
 
 # Increment the version number
 echo -e "\033[32mIncrementing the version number...\033[0m"

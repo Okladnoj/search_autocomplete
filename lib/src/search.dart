@@ -293,7 +293,11 @@ class _SearchAutocompleteState<T> extends State<SearchAutocomplete<T>>
               const SizedBox.shrink();
         }
 
-        final child = widget.dropDownBuilder?.call(options, _onSelect) ??
+        final child = widget.dropDownBuilder?.call(
+              options,
+              _onSelect,
+              _controller,
+            ) ??
             DefaultDropDown<T>(
               options: options,
               onSelected: _onSelect,

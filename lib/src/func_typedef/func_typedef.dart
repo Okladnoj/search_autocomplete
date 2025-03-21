@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 /// - `options`: A list of type `T` which contains the dropdown options.
 /// - `onSelected`: A callback function of type `ValueChanged<T>` which gets
 ///     triggered when an option is selected.
+/// - `controller`: The `TextEditingController` for the text **search field**.
 ///
 /// **Returns:**
 /// - `Widget`: The dropdown widget created using the provided parameters.
@@ -17,6 +18,7 @@ import 'package:flutter/material.dart';
 typedef DropDownWithArgs<T> = Widget Function(
   List<T> options,
   ValueChanged<T> onSelected,
+  TextEditingController controller,
 );
 
 /// A function type definition for creating a text field widget.
